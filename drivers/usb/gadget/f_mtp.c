@@ -805,6 +805,26 @@ static void receive_file_work(struct work_struct *data)
 					usb_ep_dequeue(dev->ep_out, read_req);
 				break;
 			}
+			if (dev->state == STATE_OFFLINE) {
+				r = -ENODEV;
+				if (!dev->rx_done)
+					usb_ep_dequeue(dev->ep_out, read_req);
+				break;
+			}
+			if (dev->state == STATE_RESET) {
+				DBG(cdev, "%s: DEVICE RESET\n", __func__);
+				r = -ECONNRESET;
+				if (!dev->rx_done) {
+					DBG(cdev, "dequeue in DEVICE RESET\n");
+					usb_ep_dequeue(dev->ep_out, read_req);
+				}
+				break;
+			}
+			if (read_req->status) {
+				r = read_req->status;
+				break;
+			}
+
 			/* if xfer_file_length is 0xFFFFFFFF, then we read until
 			 * we get a zero length packet
 			 */
