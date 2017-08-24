@@ -1555,7 +1555,7 @@ static void binder_transaction_buffer_release(struct binder_proc *proc,
 		case BINDER_TYPE_HANDLE:
 		case BINDER_TYPE_WEAK_HANDLE: {
 
-			struct binder_ref *ref = binder_get_ref(proc, fp->handle);
+//			struct binder_ref *ref = binder_get_ref(proc, fp->handle);
 
 			struct flat_binder_object *fp;
 			struct binder_ref *ref;
