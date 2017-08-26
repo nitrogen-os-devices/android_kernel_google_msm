@@ -48,6 +48,7 @@
 #define STATE_BUSY                  2   /* processing userspace calls */
 #define STATE_CANCELED              3   /* transaction canceled by host */
 #define STATE_ERROR                 4   /* error from completion routine */
+#define STATE_RESET                 5   /* reset the device */
 
 /* number of tx and rx requests to allocate */
 #define TX_REQ_MAX 4
